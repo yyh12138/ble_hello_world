@@ -31,16 +31,13 @@ jobs:
       - name: Install west
         run: pip3 install west
 
-      # 步骤3：初始化 west，并拉取 NCS 依赖
-      # 'self' 指向我们自己的应用仓库
-      # 'manifest.path' 指向 ncs 主仓库
-      # 'manifest.rev' 指定要使用的 NCS 版本
-      # 移除 checkout action 添加的认证头，以避免在访问 ncs 公开仓库时出现认证问题
-      - name: Initialize west
-        run: |
-          git config --unset "http.https://github.com/.extraheader"
-          west init -m https://github.com/nrfconnect/sdk-nrf --mr v2.9.0    # 指向正确 manifest
-          west update
+      # 步骤3：初始化 zephyr
+      - name: Setup Zephyr projects
+        uses: zephyrproject-rtos/action-zephyr-setup@v1
+        with:
+          app-path: .
+          toochains: arm-zephyr-eabi
+          sdk-version: 0.16.4
 
       # 步骤4：导出 Zephyr 环境变量
       - name: Export Zephyr Cmake package
