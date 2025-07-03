@@ -35,8 +35,10 @@ jobs:
       # 'self' 指向我们自己的应用仓库
       # 'manifest.path' 指向 ncs 主仓库
       # 'manifest.rev' 指定要使用的 NCS 版本
+      # 移除 checkout action 添加的认证头，以避免在访问 ncs 公开仓库时出现认证问题
       - name: Initialize west
         run: |
+          git config --unset "http.https://github.com/.extraheader"
           west init -l .
           west update
 
