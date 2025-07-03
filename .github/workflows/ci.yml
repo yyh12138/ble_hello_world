@@ -1,9 +1,9 @@
 name: NCS Build CI
 
-# 触发条件：当有代码 push 到 main 分支，或者有 pull request 时触发
+# 触发条件：当有代码 push 到 master 分支，或者有 pull request 时触发
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
 
 # 定义并发控制，确保同一分支的旧任务会被自动取消
