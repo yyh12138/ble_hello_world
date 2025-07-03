@@ -39,7 +39,7 @@ jobs:
       - name: Initialize west
         run: |
           git config --unset "http.https://github.com/.extraheader"
-          west init -l .
+          west init -m https://github.com/nrfconnect/sdk-nrf --mr v2.9.0    # 指向正确 manifest
           west update
 
       # 步骤4：导出 Zephyr 环境变量
