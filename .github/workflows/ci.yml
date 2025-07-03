@@ -19,7 +19,7 @@ jobs:
     # 定义构建矩阵，可以一次性为多个目标板进行构建
     strategy:
       matrix:
-        board: ['nrf52840dk_nrf52840']
+        board: ['nrf52840dk']
 
     # 任务步骤
     steps:
