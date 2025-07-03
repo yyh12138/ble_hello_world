@@ -8,7 +8,7 @@ manifest:
     - name: sdk-nrf
       remote: nrfconnect
       # 锁定使用的 NCS SDK 版本
-      revision: v2.9.0
+      revision: v3.0.1
       path: nrf
       # 'import: true' 会导入 sdk-nrf 文件中定义的所有依赖项 (zephyr, etc.)
       import: true
