@@ -1,0 +1,21 @@
+manifest:
+  remotes:
+    # 定义一个名为 ncs 的远程源，指向 nrfconnect 的 GitHub
+    - name: ncs
+      url-base: https://github.com/nrfconnect
+
+  projects:
+    # 定义本工作空间需要 nrf-connect-sdk 这个项目
+    - name: nrf-connect-sdk
+      remote: ncs
+      # 'repo-path' 是远程仓库的名字
+      repo-path: ncs-manifest
+      # 在这里锁定你希望使用的 NCS SDK 版本！
+      revision: v2.9.0
+      # 'import: true' 是关键！它会导入 ncs-manifest 文件中定义的所有依赖项 (zephyr, etc.)
+      import: true
+
+  # 'self' 代表本项目自身
+  self:
+    # 'path' 定义了 west init 之后，本项目代码存放的目录名
+    path: ble_hello_world

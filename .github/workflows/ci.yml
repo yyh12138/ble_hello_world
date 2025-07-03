@@ -37,7 +37,7 @@ jobs:
       # 'manifest.rev' 指定要使用的 NCS 版本
       - name: Initialize west
         run: |
-          west init -l . --mr v2.9.0
+          west init -l .
           west update
 
       # 步骤4：导出 Zephyr 环境变量
