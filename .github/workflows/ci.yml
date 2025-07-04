@@ -57,4 +57,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: firmware-${{ matrix.board }}
-          path: build/${{ matrix.board }}/${{ github.repository }}/zephyr/zephyr.hex
+          path: build/${{ matrix.board }}/${{ github.event.repository.name }}/zephyr/zephyr.hex 
