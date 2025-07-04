@@ -50,11 +50,6 @@ jobs:
       - name: Build for ${{ matrix.board }}
         run: |
           west build --pristine -b ${{ matrix.board }} -d build/${{ matrix.board }} .
-      
-      # 步骤6：生成 hex 文件
-      - name: Generate HEX
-        run: |
-          west build -t hex -d build/${{ matrix.board }}
 
       # 步骤7 (CD部分): 上传构建产物 (固件)
       # 这样你就可以从 Actions 页面下载编译好的固件了
@@ -62,4 +57,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: firmware-${{ matrix.board }}
-          path: build/${{ matrix.board }}/zephyr/zephyr.hex
+          path: build/${{ matrix.board }}/${{ github.repository }}/zephyr/zephyr.hex
