@@ -52,9 +52,6 @@ jobs:
       matrix:
         board: ['nrf52840dk/nrf52840']
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
       - name: Download firmware
         uses: actions/download-artifact@v4
         with: 
