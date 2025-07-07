@@ -58,3 +58,38 @@ jobs:
         with:
           name: firmware
           path: build/${{ matrix.board }}/${{ github.event.repository.name }}/zephyr/zephyr.hex 
+
+  flash_and_test:
+    needs: build
+    runs-on: [self-hosted, nrf52840dk]
+    strategy:
+      matrix:
+        board: ['nrf52840dk/nrf52840']
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Download firmware
+        uses: actions/download-artifact@v4
+        with: 
+          name: firmware
+          path: build/${{ matrix.board }}/${{ github.event.repository.name }}/zephyr/zephyr.hex
+
+      - name: Flash firmware
+        run: |
+          nrfjprog --program build/${{ matrix.board }}/${{ github.event.repository.name }}/zephyr/zephyr.hex --chiperase --reset
+      
+      - name: Install Python dependencies
+        run: |
+          pip install -r blueS/requirements.txt
+
+      - name: BLECheck
+        run: |
+          ./blues_launcher ble_test
+      
+      - name: Upload results
+        if: ${{ steps.BLECheck.outcome=='success' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: check results
+          path: ./res.json
