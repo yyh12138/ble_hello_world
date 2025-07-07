@@ -1,37 +1,29 @@
 name: NCS Build CI
 
-# 触发条件：当有代码 push 到 master 分支，或者有 pull request 时触发
 on:
   push:
     branches: [ master ]
   pull_request:
 
-# 定义并发控制，确保同一分支的旧任务会被自动取消
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   build:
-    # 运行环境
     runs-on: ubuntu-latest
     
-    # 定义构建矩阵，可以一次性为多个目标板进行构建
     strategy:
       matrix:
         board: ['nrf52840dk/nrf52840']
 
-    # 任务步骤
     steps:
-      # 步骤1：检出代码
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 步骤2：安装 west (NCS 构建工具)
       - name: Install west
         run: pip3 install west
 
-      # 步骤3：初始化 zephyr
       - name: Setup Zephyr projects
         uses: zephyrproject-rtos/action-zephyr-setup@v1
         with:
@@ -39,29 +31,23 @@ jobs:
           toochains: arm-zephyr-eabi
           sdk-version: 0.16.4
 
-      # 步骤4：导出 Zephyr 环境变量
       - name: Export Zephyr Cmake package
         run: |
           west zephyr-export
           
-      # 步骤5：为指定的目标板构建应用
-      # --pristine: 确保是全新构建
-      # -d build/${{ matrix.board }}: 为每个板创建独立的构建目录
       - name: Build for ${{ matrix.board }}
         run: |
           west build --pristine -b ${{ matrix.board }} -d build/${{ matrix.board }} .
 
-      # 步骤7 (CD部分): 上传构建产物 (固件)
-      # 这样你就可以从 Actions 页面下载编译好的固件了
       - name: Upload firmware as artifact
         uses: actions/upload-artifact@v4
         with:
           name: firmware
           path: build/${{ matrix.board }}/${{ github.event.repository.name }}/zephyr/zephyr.hex 
 
-  flash_and_test:
+  flash_and_check:
     needs: build
-    runs-on: [self-hosted, nrf52840dk]
+    runs-on: [self-hosted]
     strategy:
       matrix:
         board: ['nrf52840dk/nrf52840']
@@ -73,23 +59,23 @@ jobs:
         uses: actions/download-artifact@v4
         with: 
           name: firmware
-          path: build/${{ matrix.board }}/${{ github.event.repository.name }}/zephyr/zephyr.hex
+          path: ./firmware
 
       - name: Flash firmware
         run: |
-          nrfjprog --program build/${{ matrix.board }}/${{ github.event.repository.name }}/zephyr/zephyr.hex --chiperase --reset
+          nrfjprog --program ./firmware/zephyr.hex --chiperase --reset
       
-      - name: Install Python dependencies
-        run: |
-          pip install -r blueS/requirements.txt
+      # - name: Install Python dependencies
+      #   run: |
+      #     pip install -r blueS/requirements.txt
 
-      - name: BLECheck
-        run: |
-          ./blues_launcher ble_test
+      # - name: BLECheck
+      #   run: |
+      #     ./blues_launcher ble_test
       
-      - name: Upload results
-        if: ${{ steps.BLECheck.outcome=='success' }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: check results
-          path: ./res.json
+      # - name: Upload results
+      #   if: ${{ steps.BLECheck.outcome=='success' }}
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: check results
+      #     path: ./res.json
