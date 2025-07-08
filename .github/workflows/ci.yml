@@ -71,7 +71,7 @@ jobs:
 
       - name: BLECheck
         run: |
-          ./blues/blues_launcher ble_test
+          ./blueS/blues_launcher ble_test
       
       # - name: Upload results
       #   if: ${{ steps.BLECheck.outcome=='success' }}
