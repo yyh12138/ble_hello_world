@@ -71,6 +71,7 @@ jobs:
 
       - name: BLECheck
         run: |
+          ls
           ./blueS/blues_launcher ble_test
       
       # - name: Upload results
