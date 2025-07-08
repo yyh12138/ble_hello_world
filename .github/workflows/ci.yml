@@ -69,10 +69,14 @@ jobs:
       #   run: |
       #     pip install -r blueS/requirements.txt
 
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
       - name: BLECheck
         run: |
           ls
-          ./blueS/blues_launcher ble_test
+          cd blueS
+          ./blues_launcher ble_test
       
       # - name: Upload results
       #   if: ${{ steps.BLECheck.outcome=='success' }}
