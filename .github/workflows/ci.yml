@@ -43,7 +43,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: firmware
-          path: build/${{ matrix.board }}/${{ github.event.repository.name }}/zephyr/merged.hex 
+          path: build/${{ matrix.board }}/merged.hex 
 
   flash_and_check:
     needs: build
