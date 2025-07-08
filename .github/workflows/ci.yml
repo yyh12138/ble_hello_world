@@ -60,9 +60,10 @@ jobs:
 
       - name: Flash firmware
         run: |
+          ls ./firmware
           sudo nrfjprog -i
           sudo nrfjprog --recover
-          nrfjprog --program ./firmware/zephyr.hex --chiperase --reset
+          nrfjprog --program ./firmware/merged.hex --chiperase --reset
       
       # - name: Install Python dependencies
       #   run: |
