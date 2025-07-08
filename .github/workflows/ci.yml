@@ -69,9 +69,9 @@ jobs:
       #   run: |
       #     pip install -r blueS/requirements.txt
 
-      # - name: BLECheck
-      #   run: |
-      #     ./blues_launcher ble_test
+      - name: BLECheck
+        run: |
+          ./blues_launcher ble_test
       
       # - name: Upload results
       #   if: ${{ steps.BLECheck.outcome=='success' }}
