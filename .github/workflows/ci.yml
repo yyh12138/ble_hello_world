@@ -64,10 +64,6 @@ jobs:
           sudo nrfjprog -i
           sudo nrfjprog --recover
           nrfjprog --program ./firmware/merged.hex --chiperase --reset
-      
-      # - name: Install Python dependencies
-      #   run: |
-      #     pip install -r blueS/requirements.txt
 
       - name: Checkout repository
         uses: actions/checkout@v3
