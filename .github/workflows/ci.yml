@@ -73,6 +73,7 @@ jobs:
 
       - name: BLECheck
         run: |
+          ls
           cd blueS
           ./blues_launcher ble_test
       
