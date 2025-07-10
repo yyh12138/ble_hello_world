@@ -18,6 +18,11 @@ jobs:
         board: ['nrf52840dk/nrf52840']
 
     steps:
+      - name: Initialize submodules
+        run: |
+          git submodule sync
+          git submodule update --init --recursive
+          
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
