@@ -1,3 +1,6 @@
 [submodule "blueS"]
 	path = blueS
-	url = git@github.com:yyh12138/blueS.git
+	# url = git@github.com:yyh12138/blueS.git
+	url = https://github.com/yyh12138/blueS.git
+
+
