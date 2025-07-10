@@ -21,7 +21,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          submodules: true
+          submodules: recursive
 
       - name: Install west
         run: pip3 install west
