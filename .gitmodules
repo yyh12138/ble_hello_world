@@ -1,6 +1,6 @@
 [submodule "blueS"]
 	path = blueS
-	url = ssh://git@github.com:yyh12138/blueS.git
+	url = ssh://git@github.com/yyh12138/blueS.git
 	# url = https://github.com/yyh12138/blueS.git
 
 
