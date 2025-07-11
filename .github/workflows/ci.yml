@@ -80,6 +80,6 @@ jobs:
         run: |
           ls
           cd blueS
-          ./blues_launcher ble_test
+          ./blues_launcher "ble_connect|ble_discover"
       
       # - name: Upload results
