@@ -83,8 +83,3 @@ jobs:
           ./blues_launcher ble_test
       
       # - name: Upload results
-      #   if: ${{ steps.BLECheck.outcome=='success' }}
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: check results
-      #     path: ./res.json
